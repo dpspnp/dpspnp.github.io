@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DishMash - Rate Your Favorite Dishes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #8B0000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .dish-comparison {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .dish {
+            text-align: center;
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dish img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .dish-name {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .vote-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .leaderboard {
+            margin-top: 40px;
+        }
+        .leaderboard h2 {
+            text-align: center;
+        }
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .leaderboard-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .leaderboard-item .dish-name {
+            flex-grow: 1;
+        }
+        .leaderboard-item .votes {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        DishMash
+    </div>
+    <div class="main-content">
+        <h2>Which dish do you prefer? Click to choose.</h2>
+        <div class="dish-comparison">
+            <div class="dish">
+                <img id="left-dish-img" src="images/dish1.png" alt="Dish 1">
+                <div id="left-dish-name" class="dish-name">Dish Name 1</div>
+                <div class="vote-buttons">
+                    <button onclick="vote('left')">Left</button>
+                </div>
+            </div>
+            <div class="dish">
+                <img id="right-dish-img" src="images/dish2.png" alt="Dish 2">
+                <div id="right-dish-name" class="dish-name">Dish Name 2</div>
+                <div class="vote-buttons">
+                    <button onclick="vote('right')">Right</button>
+                </div>
+            </div>
+        </div>
+        <div class="leaderboard">
+            <h2>Top 10 Dishes</h2>
+            <div id="top-dishes"></div>
+        </div>
+    </div>
+    <script>
+        let currentLeftIndex = 1;
+        let currentRightIndex = 2;
+        const dishes = Array.from({ length: 50 }, (_, i) => ({
+            name: `Dish Name ${i + 1}`,
+            image: `images/dish${i + 1}.png`,
+            votes: 0,
+        }));
+
+        function updateDishes() {
+            document.getElementById('left-dish-img').src = dishes[currentLeftIndex - 1].image;
+            document.getElementById('left-dish-name').textContent = dishes[currentLeftIndex - 1].name;
+
+            document.getElementById('right-dish-img').src = dishes[currentRightIndex - 1].image;
+            document.getElementById('right-dish-name').textContent = dishes[currentRightIndex - 1].name;
+        }
+
+        function vote(selectedSide) {
+            if (selectedSide === 'left') {
+                dishes[currentLeftIndex - 1].votes += 1;
+                currentRightIndex++;
+                if (currentRightIndex <= 50) {
+                    currentLeftIndex = currentRightIndex - 1;
+                }
+            } else if (selectedSide === 'right') {
+                dishes[currentRightIndex - 1].votes += 1;
+                currentLeftIndex = currentRightIndex;
+                currentRightIndex++;
+            }
+
+            if (currentRightIndex > 50) {
+                displayLeaderboard();
+            } else {
+                updateDishes();
+            }
+        }
+
+        function displayLeaderboard() {
+            const leaderboard = document.getElementById("top-dishes");
+            leaderboard.innerHTML = '';
+
+            const topDishes = dishes
+                .sort((a, b) => b.votes - a.votes)
+                .slice(0, 10);
+
+            topDishes.forEach(dish => {
+                const item = document.createElement("div");
+                item.className = "leaderboard-item";
+                item.innerHTML = `<img src="${dish.image}" alt="${dish.name}"><span class="dish-name">${dish.name}</span><span class="votes">${dish.votes} votes</span>`;
+                leaderboard.appendChild(item);
+            });
+        }
+
+        // Initialize the first pair of dishes
+        updateDishes();
+    </script>
+</body>
+</html>
