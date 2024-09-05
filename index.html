@@ -93,59 +93,102 @@
         DishMash
     </div>
     <div class="main-content">
-        <h2>Which dish do you prefer? Click to choose.</h2>
+        <h2>Which person do you prefer? Click to choose.</h2>
         <div class="dish-comparison">
             <div class="dish">
-                <img id="left-dish-img" src="images/dish1.png" alt="Dish 1">
-                <div id="left-dish-name" class="dish-name">Dish Name 1</div>
+                <img id="left-dish-img" src="" alt="Left Image">
+                <div id="left-dish-name" class="dish-name"></div>
                 <div class="vote-buttons">
                     <button onclick="vote('left')">Left</button>
                 </div>
             </div>
             <div class="dish">
-                <img id="right-dish-img" src="images/dish2.png" alt="Dish 2">
-                <div id="right-dish-name" class="dish-name">Dish Name 2</div>
+                <img id="right-dish-img" src="" alt="Right Image">
+                <div id="right-dish-name" class="dish-name"></div>
                 <div class="vote-buttons">
                     <button onclick="vote('right')">Right</button>
                 </div>
             </div>
         </div>
         <div class="leaderboard">
-            <h2>Top 10 Dishes</h2>
+            <h2>Top 10 Choices</h2>
             <div id="top-dishes"></div>
         </div>
     </div>
     <script>
-        let currentLeftIndex = 1;
-        let currentRightIndex = 2;
-        const dishes = Array.from({ length: 50 }, (_, i) => ({
-            name: `Dish Name ${i + 1}`,
-            image: `images/dish${i + 1}.png`,
-            votes: 0,
-        }));
+        const dishes = [
+            { name: 'MISHI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/5423.jpg', votes: 0 },
+            { name: 'PARAMA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/5949.jpg', votes: 0 },
+            { name: 'NAVYA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/7526.jpg', votes: 0 },
+            { name: 'ANSHIKA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/20240422080939741img.jpeg', votes: 0 },
+            { name: 'ANSHIKA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3937.jpg', votes: 0 },
+            { name: 'VAISNAVI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/6649.jpg', votes: 0 },
+            { name: 'AVIKA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/5957.jpg', votes: 0 },
+            { name: 'ANUSHKA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/4773.jpg', votes: 0 },
+            { name: 'AAKANCHA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3968.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            { name: 'ADITI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/3720.jpg', votes: 0 },
+            
+        ];
+
+        let currentLeftIndex = 0;
+        let currentRightIndex = 1;
 
         function updateDishes() {
-            document.getElementById('left-dish-img').src = dishes[currentLeftIndex - 1].image;
-            document.getElementById('left-dish-name').textContent = dishes[currentLeftIndex - 1].name;
+            document.getElementById('left-dish-img').src = dishes[currentLeftIndex].image;
+            document.getElementById('left-dish-name').textContent = dishes[currentLeftIndex].name;
 
-            document.getElementById('right-dish-img').src = dishes[currentRightIndex - 1].image;
-            document.getElementById('right-dish-name').textContent = dishes[currentRightIndex - 1].name;
+            document.getElementById('right-dish-img').src = dishes[currentRightIndex].image;
+            document.getElementById('right-dish-name').textContent = dishes[currentRightIndex].name;
         }
 
         function vote(selectedSide) {
             if (selectedSide === 'left') {
-                dishes[currentLeftIndex - 1].votes += 1;
+                dishes[currentLeftIndex].votes += 1;
                 currentRightIndex++;
-                if (currentRightIndex <= 50) {
+                if (currentRightIndex < dishes.length) {
                     currentLeftIndex = currentRightIndex - 1;
                 }
             } else if (selectedSide === 'right') {
-                dishes[currentRightIndex - 1].votes += 1;
+                dishes[currentRightIndex].votes += 1;
                 currentLeftIndex = currentRightIndex;
                 currentRightIndex++;
             }
 
-            if (currentRightIndex > 50) {
+            if (currentRightIndex >= dishes.length) {
                 displayLeaderboard();
             } else {
                 updateDishes();
@@ -168,7 +211,7 @@
             });
         }
 
-        // Initialize the first pair of dishes
+        // Initialize the first pair of images
         updateDishes();
     </script>
 </body>
