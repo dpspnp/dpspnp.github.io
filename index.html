@@ -116,7 +116,7 @@
         </div>
     </div>
     <script>
-        const dishes = [
+        let dishes = [
             { name: 'MISHI', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/5423.jpg', votes: 0 },
             { name: 'PARAMA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/5949.jpg', votes: 0 },
             { name: 'NAVYA', image: 'https://edusecure.org/Dpspnp/StudentInfo/StudentImages/7526.jpg', votes: 0 },
@@ -166,55 +166,42 @@
             
         ];
 
-        let currentLeftIndex = 0;
-        let currentRightIndex = 1;
+      let currentDishIndex = 0;
+let currentDish = dishes[0];
+let nextDishIndex = 1;
 
-        function updateDishes() {
-            document.getElementById('left-dish-img').src = dishes[currentLeftIndex].image;
-            document.getElementById('left-dish-name').textContent = dishes[currentLeftIndex].name;
+const leftDishElement = document.getElementById("left-dish");
+const rightDishElement = document.getElementById("right-dish");
+const leftDishName = document.getElementById("left-dish-name");
+const rightDishName = document.getElementById("right-dish-name");
 
-            document.getElementById('right-dish-img').src = dishes[currentRightIndex].image;
-            document.getElementById('right-dish-name').textContent = dishes[currentRightIndex].name;
-        }
+function updateDishElements() {
+    leftDishElement.src = currentDish.image;
+    leftDishName.innerText = currentDish.name;
+    rightDishElement.src = dishes[nextDishIndex].image;
+    rightDishName.innerText = dishes[nextDishIndex].name;
+}
 
-        function vote(selectedSide) {
-            if (selectedSide === 'left') {
-                dishes[currentLeftIndex].votes += 1;
-                currentRightIndex++;
-                if (currentRightIndex < dishes.length) {
-                    currentLeftIndex = currentRightIndex - 1;
-                }
-            } else if (selectedSide === 'right') {
-                dishes[currentRightIndex].votes += 1;
-                currentLeftIndex = currentRightIndex;
-                currentRightIndex++;
-            }
+document.getElementById("left-button").addEventListener("click", function () {
+    currentDish.votes += 1;
+    nextDishIndex++;
+    if (nextDishIndex >= dishes.length) {
+        nextDishIndex = 0; // Reset to the first dish if the end is reached
+    }
+    updateDishElements();
+});
 
-            if (currentRightIndex >= dishes.length) {
-                displayLeaderboard();
-            } else {
-                updateDishes();
-            }
-        }
+document.getElementById("right-button").addEventListener("click", function () {
+    currentDish = dishes[nextDishIndex];
+    currentDish.votes += 1;
+    nextDishIndex++;
+    if (nextDishIndex >= dishes.length) {
+        nextDishIndex = 0; // Reset to the first dish if the end is reached
+    }
+    updateDishElements();
+});
 
-        function displayLeaderboard() {
-            const leaderboard = document.getElementById("top-dishes");
-            leaderboard.innerHTML = '';
-
-            const topDishes = dishes
-                .sort((a, b) => b.votes - a.votes)
-                .slice(0, 10);
-
-            topDishes.forEach(dish => {
-                const item = document.createElement("div");
-                item.className = "leaderboard-item";
-                item.innerHTML = `<img src="${dish.image}" alt="${dish.name}"><span class="dish-name">${dish.name}</span><span class="votes">${dish.votes} votes</span>`;
-                leaderboard.appendChild(item);
-            });
-        }
-
-        // Initialize the first pair of images
-        updateDishes();
+updateDishElements(); // Initialize the first two dishes
     </script>
 </body>
 </html>
